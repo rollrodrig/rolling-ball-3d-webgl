@@ -1,0 +1,33 @@
+{
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "prettier/@typescript-eslint",
+      "plugin:prettier/recommended"
+    ],
+    "plugins": ["@typescript-eslint", "prettier"],
+    "env": {
+      "browser": true,
+      "jasmine": true,
+      "jest": true
+    },
+    "rules": {
+      "prettier/prettier": ["error", { 
+        "singleQuote": true, 
+        "trailingComma":"es5", 
+        "tabWidth":4,
+        "useTabs": true
+        }],
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/no-explicit-any":"off",
+      "@typescript-eslint/no-empty-interface":"off",
+      "@typescript-eslint/ban-ts-ignore":"off",
+      "indent": ["error", "tab"],
+      "no-undef":"off",
+      "no-console":"off"
+    },
+    "settings": {
+    },
+    "parser": "@typescript-eslint/parser"
+    
+  }

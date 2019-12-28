@@ -1,0 +1,12 @@
+{
+  "eslint.validate": [
+      "javascript",
+      {
+        "language": "typescript",
+        "autoFix": true
+      }
+  ],
+  "editor.tabSize":4,
+  "editor.insertSpaces": false,
+  "editor.detectIndentation": true
+}

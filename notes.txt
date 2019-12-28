@@ -1,0 +1,11 @@
+
+
+    // var gizmoManager = new GizmoManager(scene);
+    // gizmoManager.positionGizmoEnabled = true;
+    // gizmoManager.rotationGizmoEnabled = true;
+    // gizmoManager.scaleGizmoEnabled = true;
+    // gizmoManager.boundingBoxGizmoEnabled = true;
+    // gizmoManager.attachableMeshes = [box]; 
+
+
+    
