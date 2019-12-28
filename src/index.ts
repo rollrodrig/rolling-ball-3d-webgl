@@ -24,18 +24,20 @@ const engine = new Engine(canvas, true);
 const createScene = function() {
 	const scene = new Scene(engine);
 	const lights: Lights = new Lights(scene);
-	lights.create();
-	const camera = new Camera(scene, canvas);
-	camera.create();
-	camera.setDebugCamera();
 	const player: Player = new Player(scene, 'player');
+	const camera = new Camera(scene, canvas);
 	const movePlayer: MovePlayer = new MovePlayer(scene, player);
-	movePlayer.createAction();
 	const road = new Road(scene);
+	lights.create();
+	camera.create();
+	// camera.setDebugCamera();
+	movePlayer.createAction();
 	road.create();
 	// const enemyController = new Enemies(scene);
 	// const wall = new Wall(scene, { width: 1, height: 1, depth: 10 }, -STEP);
 	scene.registerBeforeRender(() => {
+		player.update();
+		camera.update();
 		// enemyController.addMinion();
 		// enemyController.update();
 	});

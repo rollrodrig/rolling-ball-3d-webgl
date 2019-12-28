@@ -18,7 +18,7 @@ class Road {
 		const options = {
 			width: this.xPositionValue * 2,
 			height: 30,
-			depth: 10,
+			depth: 100,
 		};
 		const position = new Vector3(
 			-this.xPositionValue,
