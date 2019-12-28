@@ -16,7 +16,9 @@ import Camera from './objects/Camera';
 import Lights from './objects/Lights';
 import Road from './objects/Road';
 import Enemies from './controllers/Enemies';
+import Wall from './characters/Wall';
 import { random } from './utils/random';
+import { STEP } from './storages/constants';
 const canvas: any = document.getElementById('canvas');
 const engine = new Engine(canvas, true);
 const createScene = function() {
@@ -32,6 +34,7 @@ const createScene = function() {
 	const road = new Road(scene);
 	road.create();
 	// const enemyController = new Enemies(scene);
+	// const wall = new Wall(scene, { width: 1, height: 1, depth: 10 }, -STEP);
 	scene.registerBeforeRender(() => {
 		// enemyController.addMinion();
 		// enemyController.update();

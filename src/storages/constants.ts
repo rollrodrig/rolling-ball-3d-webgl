@@ -1,3 +1,4 @@
+export const STEP = 1;
 export interface TInitialXPostionEnemies {
 	Left: number;
 	Center: number;

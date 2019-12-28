@@ -1,30 +1,40 @@
 import { Scene, MeshBuilder, Vector3 } from 'babylonjs';
 import Enemy from './Enemy';
-class Minion extends Enemy {
-	speed: number;
-	defaultInitialPosition: Vector3;
-	constructor(scene: Scene, position: Vector3) {
+export interface TDimension {
+	width: number;
+	height: number;
+	depth: number;
+}
+class Wall extends Enemy {
+	dimension: TDimension;
+	position: Vector3;
+	constructor(scene: Scene, dimension: TDimension, position: number) {
 		super(scene);
-		this.defaultInitialPosition = position;
-		this.speed = 0.05;
+		this.dimension = dimension;
+		this.position = new Vector3(
+			position,
+			this.dimension.height / 2,
+			this.dimension.depth / 2
+		);
 		this.create();
 	}
 	private create() {
-		this.entity = MeshBuilder.CreateBox(name, {}, this.scene);
-		this.entity.position = this.defaultInitialPosition;
+		const options = { ...this.dimension };
+		this.entity = MeshBuilder.CreateBox(name, options, this.scene);
+		this.entity.position = this.position;
 	}
 	update(): void {
-		this.entity.position.z -= this.speed;
-		if (this.delete == false && this.entity.position.z < -3) {
-			this.delete = true;
-		}
+		// this.entity.position.z -= this.speed;
+		// if (this.delete == false && this.entity.position.z < -3) {
+		// 	this.delete = true;
+		// }
 	}
 	remove(): void {
 		this.entity.dispose();
 		this.entity = null;
 	}
 }
-export default Minion;
+export default Wall;
 
 // this.entity.onBeforeRenderObservable.add(this.update.bind(this));
 // this.entity.onBeforeRenderObservable.add(() => {
