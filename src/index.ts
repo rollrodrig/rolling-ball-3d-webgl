@@ -35,11 +35,13 @@ const createScene = function() {
 	road.create();
 	// const enemyController = new Enemies(scene);
 	// const wall = new Wall(scene, { width: 1, height: 1, depth: 10 }, -STEP);
+	// const b = MeshBuilder.CreateBox('b', {}, scene);
 	scene.registerBeforeRender(() => {
 		player.update();
 		camera.update();
 		// enemyController.addMinion();
 		// enemyController.update();
+		// b.position.z +=0.05;
 	});
 	return scene;
 };

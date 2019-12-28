@@ -29,8 +29,8 @@ class Camera {
 			degToRadians(this.yPivot),
 			degToRadians(this.xPivot),
 			this.distance,
-			new Vector3(0, 0, 6),
-			// Vector3.Zero(),
+			// new Vector3(0, 0, 6),
+			Vector3.Zero(),
 			this.scene
 		);
 		this.camera.upperBetaLimit = degToRadians(this.xPivot + 20);
