@@ -1,14 +1,7 @@
 import { Scene, MeshBuilder, Mesh, Vector3 } from 'babylonjs';
 import { STEP } from '../storages/constants';
-import RoadPath from './RoadPath';
-import { roadData, TRoadData } from '../storages/roadData';
-export enum LOCATION {
-	L = 'L',
-	C = 'C',
-	R = 'R',
-}
+import { ROAD, TRoad } from '../storages/road';
 class Road {
-	roads: RoadPath[];
 	private scene: Scene;
 	entity: Mesh;
 	xPositionValue: number = STEP;
@@ -16,18 +9,17 @@ class Road {
 		this.scene = scene;
 	}
 	create() {
-		roadData.map((data: TRoadData) => {
+		ROAD.map((data: TRoad) => {
 			this.addRoad(data);
 		});
 	}
-	addRoad(data: TRoadData) {
-		console.log(data);
+	addRoad(data: TRoad) {
 		const options = {
 			width: this.xPositionValue * 2,
 			height: 30,
 			depth: data.l,
 		};
-		const xPosition = data.x ? this.xPositionValue : -this.xPositionValue;
+		const xPosition = this.xPositionValue * data.x;
 		const position = new Vector3(
 			xPosition,
 			-(options.height / 2),

@@ -1,5 +1,5 @@
 import { Scene, Vector3 } from 'babylonjs';
-import Wall from '../characters/Wall';
+import Wall from '../objects/Wall';
 import Controller from './Controller';
 import Enemy from '../characters/Enemy';
 import {
@@ -27,7 +27,7 @@ class Enemies extends Controller {
 		let instance: Enemy;
 		const position = new Vector3(this.currentEnemyData.position, 0, 15);
 		if (this.currentEnemyData.type == ENEMIES.Minion) {
-			instance = new Wall(this.scene, position);
+			// instance = new Wall(this.scene, position);
 		}
 		return instance;
 	}

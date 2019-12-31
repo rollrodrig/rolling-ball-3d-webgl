@@ -1,10 +1,8 @@
 import { Scene, MeshBuilder, Mesh } from 'babylonjs';
-import O from '../objects/O';
-abstract class Entity extends O {
+abstract class Entity {
 	scene: Scene;
 	entity: Mesh;
 	constructor(scene: Scene) {
-		super();
 		this.scene = scene;
 	}
 	abstract update(): void;
