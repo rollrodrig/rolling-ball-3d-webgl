@@ -1,19 +1,27 @@
-import { Scene, Vector3, HemisphericLight } from 'babylonjs';
+import { Scene, Vector3, HemisphericLight, DirectionalLight } from 'babylonjs';
 class Lights {
 	light: number;
 	scene: Scene;
-	mainLight: HemisphericLight;
+	hemispheric: HemisphericLight;
+	directional: DirectionalLight;
 	color: Vector3;
 	constructor(scene: Scene) {
 		this.scene = scene;
 		this.color = new Vector3(0, 1, 0);
 	}
 	create() {
-		this.mainLight = new HemisphericLight(
-			'HemiLight',
+		this.hemispheric = new HemisphericLight(
+			'hemispheric',
 			this.color,
 			this.scene
 		);
+		this.hemispheric.intensity = 0.6;
+		this.directional = new DirectionalLight(
+			'directional',
+			new Vector3(-0.5, -0.7, 1),
+			this.scene
+		);
+		this.directional.intensity = 0.3;
 	}
 }
 export default Lights;
