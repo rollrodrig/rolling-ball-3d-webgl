@@ -2,6 +2,7 @@ import {
 	Scene,
 	Engine,
 	Color3,
+	Color4,
 	Vector3,
 	HemisphericLight,
 	ArcRotateCamera,
@@ -22,22 +23,23 @@ import { STEP } from './storages/constants';
 const canvas: any = document.getElementById('canvas');
 const engine = new Engine(canvas, true);
 const createScene = function() {
-	const scene = new Scene(engine);
+	const scene: Scene = new Scene(engine);
 	const lights: Lights = new Lights(scene);
 	const player: Player = new Player(scene, 'player');
 	const camera = new Camera(scene, canvas);
 	const movePlayer: MovePlayer = new MovePlayer(scene, player);
 	const road = new Road(scene);
 	const wall = new Wall(scene);
+	scene.clearColor = new Color4(255 / 255, 255 / 255, 248 / 255);
 	lights.create();
 	camera.create();
-	camera.setDebugCamera();
+	// camera.setDebugCamera();
 	movePlayer.createAction();
 	road.create();
 	wall.create();
 	scene.registerBeforeRender(() => {
-		// player.update();
-		// camera.update();
+		player.update();
+		camera.update();
 	});
 	return scene;
 };

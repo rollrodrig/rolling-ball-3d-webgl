@@ -1,4 +1,11 @@
-import { Scene, MeshBuilder, Mesh, Vector3 } from 'babylonjs';
+import {
+	Scene,
+	MeshBuilder,
+	Mesh,
+	Vector3,
+	StandardMaterial,
+	Color3,
+} from 'babylonjs';
 import { STEP } from '../storages/constants';
 import { WALL, TWall } from '../storages/walls';
 class Wall {
@@ -10,13 +17,15 @@ class Wall {
 	}
 	create() {
 		WALL.map((data: TWall) => {
-			this.addRoad(data);
+			this.add(data);
 		});
 	}
-	addRoad(data: TWall) {
+	add(data: TWall) {
+		const mat = new StandardMaterial('mat', this.scene);
+		mat.diffuseColor = Color3.FromHexString('#D3EEFF');
 		const options = {
-			width: 1,
-			height: 1,
+			width: 1.2,
+			height: 0.7,
 			depth: data.l,
 		};
 		const xPosition = this.xPositionValue * data.x;
@@ -27,6 +36,7 @@ class Wall {
 		);
 		this.entity = MeshBuilder.CreateBox('wall', options, this.scene);
 		this.entity.position = position;
+		this.entity.material = mat;
 	}
 }
 export default Wall;

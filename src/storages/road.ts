@@ -4,8 +4,8 @@ export interface TRoad {
 	x: number;
 }
 export const ROAD: TRoad[] = [
-	{ l: 20, z: 0, x: -1 },
-	{ l: 20, z: 0, x: 1 },
+	{ l: 25, z: -5, x: -1 },
+	{ l: 25, z: -5, x: 1 },
 	{ l: 10, z: 20, x: -1 },
 	{ l: 10, z: 20, x: 1 },
 	{ l: 20, z: 30, x: -1 },

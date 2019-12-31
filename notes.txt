@@ -1,5 +1,3 @@
-
-
     // var gizmoManager = new GizmoManager(scene);
     // gizmoManager.positionGizmoEnabled = true;
     // gizmoManager.rotationGizmoEnabled = true;

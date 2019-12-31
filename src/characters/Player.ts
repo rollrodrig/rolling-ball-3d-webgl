@@ -6,7 +6,11 @@ class Player extends Entity {
 	speed: number;
 	constructor(scene: Scene, name: string) {
 		super(scene);
-		this.entity = MeshBuilder.CreateSphere(name, { diameter: 0.5 }, scene);
+		this.entity = MeshBuilder.CreateSphere(
+			name,
+			{ segments: 12, diameter: 0.5 },
+			scene
+		);
 		this.entity.position.y = 0.25;
 		this.speed = 0.05;
 		this.moveLeft();

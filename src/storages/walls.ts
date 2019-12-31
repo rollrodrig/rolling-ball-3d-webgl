@@ -4,7 +4,7 @@ export interface TWall {
 	x: number;
 }
 export const WALL: TWall[] = [
-	{ l: 10, z: 3, x: 1 },
+	{ l: 10, z: 5, x: 1 },
 	{ l: 5, z: 23, x: -1 },
 	{ l: 5, z: 33, x: -1 },
 	{ l: 10, z: 43, x: 1 },

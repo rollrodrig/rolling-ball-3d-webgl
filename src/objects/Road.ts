@@ -1,4 +1,11 @@
-import { Scene, MeshBuilder, Mesh, Vector3 } from 'babylonjs';
+import {
+	Scene,
+	MeshBuilder,
+	Mesh,
+	Vector3,
+	StandardMaterial,
+	Color3,
+} from 'babylonjs';
 import { STEP } from '../storages/constants';
 import { ROAD, TRoad } from '../storages/road';
 class Road {
@@ -10,10 +17,12 @@ class Road {
 	}
 	create() {
 		ROAD.map((data: TRoad) => {
-			this.addRoad(data);
+			this.add(data);
 		});
 	}
-	addRoad(data: TRoad) {
+	add(data: TRoad) {
+		const mat = new StandardMaterial('mat', this.scene);
+		mat.diffuseColor = Color3.FromHexString('#FFFFD8');
 		const options = {
 			width: this.xPositionValue * 2,
 			height: 30,
@@ -27,6 +36,7 @@ class Road {
 		);
 		this.entity = MeshBuilder.CreateBox('road', options, this.scene);
 		this.entity.position = position;
+		this.entity.material = mat;
 	}
 }
 export default Road;
