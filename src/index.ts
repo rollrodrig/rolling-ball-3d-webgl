@@ -16,7 +16,6 @@ import MovePlayer from './scripts/MovePlayer';
 import Camera from './objects/Camera';
 import Lights from './objects/Lights';
 import Road from './objects/Road';
-import Enemies from './controllers/Enemies';
 import Wall from './objects/Wall';
 import { random } from './utils/random';
 import { STEP } from './storages/constants';

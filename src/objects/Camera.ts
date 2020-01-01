@@ -1,6 +1,7 @@
 import { Scene, Vector3, ArcRotateCamera } from 'babylonjs';
 import { degToRadians } from '../utils/degToRadians';
 import Player from '../characters/Player';
+import { PLAYER_SPEED } from '../storages/constants';
 class Camera {
 	xPivot: number;
 	yPivot: number;
@@ -57,9 +58,8 @@ class Camera {
 		this.scene.activeCamera = this.debugCamera;
 	}
 	update() {
-		this.camera.position.z += 0.05;
 		const position: Vector3 = this.camera.getTarget();
-		position.z += 0.05;
+		position.z += PLAYER_SPEED;
 		this.camera.setTarget(position);
 	}
 }
