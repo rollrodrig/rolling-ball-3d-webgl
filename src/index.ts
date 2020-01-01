@@ -33,7 +33,7 @@ const createScene = function() {
 	lights.create();
 	camera.create();
 	// camera.setDebugCamera();
-	movePlayer.createAction();
+	// movePlayer.createAction();
 	road.create();
 	wall.create();
 	scene.registerBeforeRender(() => {

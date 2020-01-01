@@ -1,4 +1,10 @@
-import { Scene, MeshBuilder, Vector3 } from 'babylonjs';
+import {
+	Scene,
+	MeshBuilder,
+	Vector3,
+	ActionManager,
+	ExecuteCodeAction,
+} from 'babylonjs';
 import { STEP, PLAYER_SPEED, TRANSLATION_SPEED } from '../storages/constants';
 import Entity from './Entity';
 class Player extends Entity {
@@ -18,11 +24,10 @@ class Player extends Entity {
 		this.entity.position.y = 0.25;
 		this.speed = PLAYER_SPEED;
 		this.limit = STEP;
-		this.translateSpeed = PLAYER_SPEED;
+		this.translateSpeed = TRANSLATION_SPEED;
 		this.moveTo = null;
 		this.setInitialPosition();
-
-		// this.entity.position = new Vector3(0, 0.25, 0);
+		this.listeKeyAction();
 	}
 	move(event: any) {
 		const k = event.sourceEvent.key;
@@ -59,5 +64,22 @@ class Player extends Entity {
 		this.moveLeft();
 		this.moveRight();
 	}
+	listeKeyAction() {
+		this.scene.actionManager = new ActionManager(this.scene);
+		this.scene.actionManager.registerAction(
+			new ExecuteCodeAction(
+				ActionManager.OnKeyDownTrigger,
+				this.move.bind(this)
+			)
+		);
+	}
 }
 export default Player;
+// this.scene.actionManager.registerAction(
+// 	new ExecuteCodeAction(
+// 		ActionManager.OnKeyUpTrigger,
+// 		(event: any) => {
+// 			this.canMove = true;
+// 		}
+// 	)
+// );
