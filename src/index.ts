@@ -95,7 +95,6 @@ engine.runRenderLoop(() => {
 // scene.onBeforeRenderObservable.addOnce(() => {
 // 	console.log("AAA");
 // });
-
 // const b1 = MeshBuilder.CreateBox('b1', {}, scene);
 // b1.position.x = -3;
 // b1.position.z = 8;
