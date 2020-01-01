@@ -12,13 +12,11 @@ import {
 	ExecuteCodeAction,
 } from 'babylonjs';
 import Player from './characters/Player';
-import MovePlayer from './scripts/MovePlayer';
 import Camera from './objects/Camera';
 import Lights from './objects/Lights';
 import Road from './objects/Road';
 import Wall from './objects/Wall';
 import { random } from './utils/random';
-import { STEP } from './storages/constants';
 const canvas: any = document.getElementById('canvas');
 const engine = new Engine(canvas, true);
 const createScene = function() {
@@ -26,7 +24,6 @@ const createScene = function() {
 	const lights: Lights = new Lights(scene);
 	const player: Player = new Player(scene, 'player');
 	const camera = new Camera(scene, canvas);
-	const movePlayer: MovePlayer = new MovePlayer(scene, player);
 	const road = new Road(scene);
 	const wall = new Wall(scene);
 	scene.clearColor = new Color4(255 / 255, 255 / 255, 248 / 255);
