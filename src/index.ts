@@ -46,7 +46,6 @@ const createScene = function() {
 		start = true;
 	});
 	gui.addControl(button);
-
 	scene.registerBeforeRender(() => {
 		if (start) {
 			if (player.isAlive()) {
