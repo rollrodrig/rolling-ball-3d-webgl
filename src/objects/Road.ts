@@ -22,7 +22,7 @@ class Road {
 	}
 	add(data: TRoad) {
 		const mat = new StandardMaterial('mat', this.scene);
-		mat.diffuseColor = Color3.FromHexString('#FFFFD8');
+		mat.diffuseColor = Color3.FromHexString('#D291BC');
 		const options = {
 			width: this.xPositionValue * 2,
 			height: 30,

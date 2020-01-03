@@ -1,4 +1,10 @@
-import { Scene, Vector3, HemisphericLight, DirectionalLight } from 'babylonjs';
+import {
+	Scene,
+	Vector3,
+	HemisphericLight,
+	DirectionalLight,
+	Color3,
+} from 'babylonjs';
 class Lights {
 	light: number;
 	scene: Scene;
@@ -15,20 +21,20 @@ class Lights {
 			this.color,
 			this.scene
 		);
-		this.hemispheric.intensity = 0.6;
+		this.hemispheric.intensity = 1;
+		this.hemispheric.specular = Color3.Black();
+		this.hemispheric.groundColor = new BABYLON.Color3(
+			230 / 255,
+			230 / 255,
+			230 / 255
+		);
 		this.directional = new DirectionalLight(
 			'directional',
-			new Vector3(-0.5, -0.7, 0.8),
+			new Vector3(0, 0, 1),
 			this.scene
 		);
-		this.directional.intensity = 0.7;
-
-		// const directional2 = new DirectionalLight(
-		// 	'directional',
-		// 	new Vector3(0.5, -0.7, 0.8),
-		// 	this.scene
-		// );
-		// directional2.intensity = 0.7;
+		this.directional.intensity = 0.15;
+		this.directional.specular = Color3.Black();
 	}
 }
 export default Lights;
