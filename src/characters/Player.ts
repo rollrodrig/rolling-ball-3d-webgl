@@ -11,6 +11,7 @@ import {
 import { STEP, PLAYER_SPEED, TRANSLATION_SPEED } from '../storages/constants';
 import Entity from './Entity';
 import Shadow from './Shadow';
+import { ROAD, TRoad } from '../storages/road';
 
 class Player extends Entity {
 	xPositionValue: number;
@@ -19,6 +20,8 @@ class Player extends Entity {
 	limit: number;
 	moveTo: boolean;
 	shadow: Shadow;
+	finishZPosition: number;
+	winner: boolean;
 	private alive: boolean;
 	private death: boolean;
 	constructor(scene: Scene, name: string) {
@@ -36,9 +39,15 @@ class Player extends Entity {
 		this.moveTo = null;
 		this.alive = true;
 		this.death = false;
+		this.winner = false;
+		this.getEndPositionZ();
 		this.setInitialPosition();
 		this.listeKeyAction();
 		this.addShadow();
+	}
+	getEndPositionZ() {
+		const lastRoad: TRoad = ROAD[ROAD.length - 1];
+		this.finishZPosition = lastRoad.z + (lastRoad.l - 10);
 	}
 	addShadow() {
 		this.shadow = new Shadow(this.scene, this);
@@ -86,11 +95,28 @@ class Player extends Entity {
 	isDeath() {
 		return this.death;
 	}
+	isWinner() {
+		return this.winner;
+	}
 	update(): void {
+		if (this.entity.position.z < this.finishZPosition) {
+			this.run();
+		} else {
+			this.winner = true;
+			this.finish();
+		}
+	}
+	start() {
+		//
+	}
+	run() {
 		this.entity.position.z += this.speed;
 		this.moveLeft();
 		this.moveRight();
 		this.shadow.update();
+	}
+	finish() {
+		//
 	}
 	listeKeyAction() {
 		this.scene.actionManager = new ActionManager(this.scene);

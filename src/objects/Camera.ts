@@ -11,7 +11,7 @@ class Camera {
 	debug: boolean;
 	camera: ArcRotateCamera;
 	debugCamera: ArcRotateCamera;
-	target: Player;
+	player: Player;
 	constructor(scene: Scene, canvas: any) {
 		this.scene = scene;
 		this.canvas = canvas;
@@ -19,10 +19,10 @@ class Camera {
 		this.yPivot = -90; // y axis
 		this.distance = 20;
 		this.debug = false;
-		this.target = null;
+		this.player = null;
 	}
 	setTarget(target: Player) {
-		this.target = target;
+		this.player = target;
 	}
 	create() {
 		this.camera = new ArcRotateCamera(
@@ -58,6 +58,21 @@ class Camera {
 		this.scene.activeCamera = this.debugCamera;
 	}
 	update() {
+		if (this.player.isWinner()) {
+			this.winAnimation();
+		} else if (this.player.isDeath()) {
+			this.deathAnimation();
+		} else {
+			this.run();
+		}
+	}
+	deathAnimation() {
+		//
+	}
+	winAnimation() {
+		//
+	}
+	run() {
 		const position: Vector3 = this.camera.getTarget();
 		position.z += PLAYER_SPEED;
 		this.camera.setTarget(position);

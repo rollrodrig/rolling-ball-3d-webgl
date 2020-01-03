@@ -18,6 +18,7 @@ import Lights from './objects/Lights';
 import Road from './objects/Road';
 import Wall from './objects/Wall';
 import { random } from './utils/random';
+import FinishLine from './objects/FinshLine';
 const canvas: any = document.getElementById('canvas');
 const engine = new Engine(canvas, true);
 const createScene = function() {
@@ -28,13 +29,16 @@ const createScene = function() {
 	const camera = new Camera(scene, canvas);
 	const road = new Road(scene);
 	const wall = new Wall(scene);
+	const finishLine = new FinishLine(scene, player);
 	scene.clearColor = new Color4(255 / 255, 255 / 255, 248 / 255);
 	lights.create();
 	camera.create();
+	camera.setTarget(player);
 	// camera.setDebugCamera();
 	road.create();
 	wall.create();
 	wall.setPlayer(player);
+	finishLine.create();
 	const gui = AdvancedDynamicTexture.CreateFullscreenUI('gui');
 	const button = Button.CreateSimpleButton('start', 'START');
 	button.width = 0.2;
