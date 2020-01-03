@@ -11,6 +11,7 @@ import {
 	ActionManager,
 	ExecuteCodeAction,
 } from 'babylonjs';
+import { AdvancedDynamicTexture, Button, Control } from 'babylonjs-gui';
 import Player from './characters/Player';
 import Camera from './objects/Camera';
 import Lights from './objects/Lights';
@@ -20,6 +21,7 @@ import { random } from './utils/random';
 const canvas: any = document.getElementById('canvas');
 const engine = new Engine(canvas, true);
 const createScene = function() {
+	let start = false;
 	const scene: Scene = new Scene(engine);
 	const lights: Lights = new Lights(scene);
 	const player: Player = new Player(scene, 'player');
@@ -30,12 +32,29 @@ const createScene = function() {
 	lights.create();
 	camera.create();
 	// camera.setDebugCamera();
-	// movePlayer.createAction();
 	road.create();
 	wall.create();
+	wall.setPlayer(player);
+	const gui = AdvancedDynamicTexture.CreateFullscreenUI('gui');
+	const button = Button.CreateSimpleButton('start', 'START');
+	button.width = 0.2;
+	button.height = '40px';
+	button.color = 'white';
+	button.background = 'green';
+	button.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
+	button.onPointerUpObservable.add(function() {
+		start = true;
+	});
+	gui.addControl(button);
+
 	scene.registerBeforeRender(() => {
-		player.update();
-		camera.update();
+		if (start) {
+			if (player.isAlive()) {
+				player.update();
+				camera.update();
+				wall.checkCollision();
+			}
+		}
 	});
 	return scene;
 };

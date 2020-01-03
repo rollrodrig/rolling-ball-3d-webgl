@@ -8,17 +8,24 @@ import {
 } from 'babylonjs';
 import { STEP } from '../storages/constants';
 import { WALL, TWall } from '../storages/walls';
+import Player from '../characters/Player';
 class Wall {
 	private scene: Scene;
 	entity: Mesh;
 	xPositionValue: number = STEP;
+	walls: Mesh[];
+	player: Player;
 	constructor(scene: Scene) {
 		this.scene = scene;
+		this.walls = [];
 	}
 	create() {
 		WALL.map((data: TWall) => {
 			this.add(data);
 		});
+	}
+	setPlayer(player: Player) {
+		this.player = player;
 	}
 	add(data: TWall) {
 		const mat = new StandardMaterial('mat', this.scene);
@@ -37,6 +44,17 @@ class Wall {
 		this.entity = MeshBuilder.CreateBox('wall', options, this.scene);
 		this.entity.position = position;
 		this.entity.material = mat;
+		this.walls.push(this.entity);
+	}
+	checkCollision() {
+		const l = this.walls.length;
+		for (let i = 0; i < l; i++) {
+			const current = this.walls[i];
+			if (current.intersectsMesh(this.player.entity, false)) {
+				this.player.die();
+				break;
+			}
+		}
 	}
 }
 export default Wall;

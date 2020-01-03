@@ -13,6 +13,8 @@ class Player extends Entity {
 	translateSpeed: number;
 	limit: number;
 	moveTo: boolean;
+	private alive: boolean;
+	private death: boolean;
 	constructor(scene: Scene, name: string) {
 		super(scene);
 		this.entity = MeshBuilder.CreateSphere(
@@ -26,6 +28,8 @@ class Player extends Entity {
 		this.limit = STEP;
 		this.translateSpeed = TRANSLATION_SPEED;
 		this.moveTo = null;
+		this.alive = true;
+		this.death = false;
 		this.setInitialPosition();
 		this.listeKeyAction();
 	}
@@ -58,6 +62,16 @@ class Player extends Entity {
 				this.moveTo = null;
 			}
 		}
+	}
+	die() {
+		this.alive = false;
+		this.death = true;
+	}
+	isAlive() {
+		return this.alive;
+	}
+	isDeath() {
+		return this.death;
 	}
 	update(): void {
 		this.entity.position.z += this.speed;
