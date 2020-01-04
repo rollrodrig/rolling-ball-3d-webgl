@@ -18,8 +18,10 @@ class FinishLine {
 		this.player = player;
 	}
 	create() {
+		const mat = new StandardMaterial('mat', this.scene);
+		mat.diffuseColor = Color3.FromHexString('#957DAD');
 		const options = {
-			diameter: 4,
+			diameter: 3.2,
 			thickness: 0.7,
 		};
 		this.entity = MeshBuilder.CreateTorus(
@@ -30,6 +32,7 @@ class FinishLine {
 		const lastRoad: TRoad = ROAD[ROAD.length - 1];
 		this.entity.position.z = lastRoad.z + (lastRoad.l - 10);
 		this.entity.rotation.x = degToRadians(90);
+		this.entity.material = mat;
 	}
 	update() {
 		// const l = this.walls.length;
