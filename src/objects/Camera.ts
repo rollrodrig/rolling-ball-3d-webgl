@@ -58,11 +58,13 @@ class Camera {
 		this.scene.activeCamera = this.debugCamera;
 	}
 	update() {
-		if (this.player.isWinner()) {
-			this.winAnimation();
-		} else if (this.player.isDeath()) {
-			this.deathAnimation();
-		} else {
+		// if (this.player.isWinner()) {
+		// 	this.winAnimation();
+		// } else if (this.player.isAlive()) {
+		// 	this.deathAnimation();
+		// } else {
+		// }
+		if (this.player.isMoving()) {
 			this.run();
 		}
 	}
@@ -73,9 +75,10 @@ class Camera {
 		//
 	}
 	run() {
-		const position: Vector3 = this.camera.getTarget();
-		position.z += PLAYER_SPEED;
-		this.camera.setTarget(position);
+		const playerPosition: Vector3 = this.player.getPosition();
+		const cameraPosition: Vector3 = this.camera.getTarget();
+		cameraPosition.z = playerPosition.z;
+		this.camera.setTarget(cameraPosition);
 	}
 }
 export default Camera;

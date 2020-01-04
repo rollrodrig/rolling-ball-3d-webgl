@@ -12,18 +12,29 @@ import { STEP, PLAYER_SPEED, TRANSLATION_SPEED } from '../storages/constants';
 import Entity from './Entity';
 import Shadow from './Shadow';
 import { ROAD, TRoad } from '../storages/road';
-
+interface TPlayerState {
+	IDDLE: number;
+	STARTING: number;
+	RUNNING: number;
+	FINISHING: number;
+	DEATH: number;
+	DYING: number;
+}
 class Player extends Entity {
 	xPositionValue: number;
 	speed: number;
+	maxSpeed: number;
 	translateSpeed: number;
 	limit: number;
 	moveTo: boolean;
 	shadow: Shadow;
 	finishZPosition: number;
 	winner: boolean;
+	aceleration: number;
+	deaceleration: number;
+	playerState: TPlayerState;
+	state: number;
 	private alive: boolean;
-	private death: boolean;
 	constructor(scene: Scene, name: string) {
 		super(scene);
 		this.entity = MeshBuilder.CreateSphere(
@@ -31,15 +42,26 @@ class Player extends Entity {
 			{ segments: 12, diameter: 0.5 },
 			scene
 		);
+		this.playerState = {
+			IDDLE: 1,
+			STARTING: 2,
+			RUNNING: 3,
+			FINISHING: 4,
+			DEATH: 5,
+			DYING: 6,
+		};
 		this.xPositionValue = STEP;
 		this.entity.position.y = 0.25;
-		this.speed = PLAYER_SPEED;
+		this.speed = 0;
+		this.maxSpeed = PLAYER_SPEED;
 		this.limit = STEP;
 		this.translateSpeed = TRANSLATION_SPEED;
 		this.moveTo = null;
 		this.alive = true;
-		this.death = false;
 		this.winner = false;
+		this.aceleration = 0.01;
+		this.deaceleration = 0.005;
+		this.setIddle();
 		this.getEndPositionZ();
 		this.setInitialPosition();
 		this.listeKeyAction();
@@ -85,38 +107,74 @@ class Player extends Entity {
 			}
 		}
 	}
-	die() {
-		this.alive = false;
-		this.death = true;
-	}
 	isAlive() {
 		return this.alive;
-	}
-	isDeath() {
-		return this.death;
 	}
 	isWinner() {
 		return this.winner;
 	}
 	update(): void {
-		if (this.entity.position.z < this.finishZPosition) {
-			this.run();
+		// In those if group only modify the speed
+		if (this.state === this.playerState.RUNNING) {
+			this.running();
+		} else if (this.state === this.playerState.STARTING) {
+			this.starting();
+		} else if (this.state === this.playerState.FINISHING) {
+			this.finishing();
+		} else if (this.state === this.playerState.DYING) {
+			this.dying();
+		} else if (this.state === this.playerState.DEATH) {
+			this.death();
 		} else {
-			this.winner = true;
-			this.finish();
+			this.iddle();
+		}
+		this.updatePlayer();
+	}
+	starting() {
+		if (this.speed < this.maxSpeed) {
+			this.speed += this.aceleration;
+		} else {
+			this.state = this.playerState.RUNNING;
 		}
 	}
-	start() {
-		//
+	running() {
+		if (this.speed != this.maxSpeed) {
+			this.speed = this.maxSpeed;
+		}
+		this.checkFinishLine();
 	}
-	run() {
+	finishing() {
+		if (this.speed >= 0) {
+			this.speed -= this.deaceleration;
+		} else {
+			this.state = this.playerState.IDDLE;
+		}
+	}
+	dying() {
+		if (this.speed != 0) {
+			this.speed = 0;
+		}
+	}
+	death() {
+		if (this.speed != 0) {
+			this.speed = 0;
+		}
+	}
+	iddle() {
+		if (this.speed != 0) {
+			this.speed = 0;
+		}
+	}
+	updatePlayer() {
 		this.entity.position.z += this.speed;
 		this.moveLeft();
 		this.moveRight();
 		this.shadow.update();
 	}
-	finish() {
-		//
+	checkFinishLine() {
+		if (this.entity.position.z > this.finishZPosition) {
+			this.state = this.playerState.FINISHING;
+		}
 	}
 	listeKeyAction() {
 		this.scene.actionManager = new ActionManager(this.scene);
@@ -125,6 +183,34 @@ class Player extends Entity {
 				ActionManager.OnKeyDownTrigger,
 				this.move.bind(this)
 			)
+		);
+	}
+	setIddle() {
+		this.state = this.playerState.IDDLE;
+	}
+	setStarting() {
+		this.state = this.playerState.STARTING;
+	}
+	setRunning() {
+		this.state = this.playerState.RUNNING;
+	}
+	setFinishing() {
+		this.state = this.playerState.FINISHING;
+	}
+	setDeath() {
+		this.state = this.playerState.DEATH;
+	}
+	setDying() {
+		this.state = this.playerState.DYING;
+	}
+	isRunning() {
+		return this.state === this.playerState.RUNNING;
+	}
+	isMoving() {
+		return (
+			this.state === this.playerState.RUNNING ||
+			this.state === this.playerState.STARTING ||
+			this.state === this.playerState.FINISHING
 		);
 	}
 }

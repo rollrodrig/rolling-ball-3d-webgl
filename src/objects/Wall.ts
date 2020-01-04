@@ -51,7 +51,7 @@ class Wall {
 		for (let i = 0; i < l; i++) {
 			const current = this.walls[i];
 			if (current.intersectsMesh(this.player.entity, false)) {
-				this.player.die();
+				this.player.setDeath();
 				break;
 			}
 		}

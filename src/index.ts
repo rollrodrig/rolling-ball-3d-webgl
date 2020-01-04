@@ -47,16 +47,14 @@ const createScene = function() {
 	button.background = 'green';
 	button.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
 	button.onPointerUpObservable.add(function() {
-		start = true;
+		player.setStarting();
 	});
 	gui.addControl(button);
 	scene.registerBeforeRender(() => {
-		if (start) {
-			if (player.isAlive()) {
-				player.update();
-				camera.update();
-				wall.checkCollision();
-			}
+		player.update();
+		camera.update();
+		if (player.isRunning()) {
+			wall.checkCollision();
 		}
 	});
 	return scene;
