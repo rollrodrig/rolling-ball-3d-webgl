@@ -11,24 +11,30 @@ import {
 	ActionManager,
 	ExecuteCodeAction,
 } from 'babylonjs';
-import { AdvancedDynamicTexture, Button, Control } from 'babylonjs-gui';
+import {
+	AdvancedDynamicTexture,
+	Button,
+	Control,
+	TextBlock,
+} from 'babylonjs-gui';
 import Player from './characters/Player';
 import Camera from './objects/Camera';
 import Lights from './objects/Lights';
 import Road from './objects/Road';
 import Wall from './objects/Wall';
+import Ui from './objects/Ui';
 import { random } from './utils/random';
 import FinishLine from './objects/FinshLine';
 const canvas: any = document.getElementById('canvas');
 const engine = new Engine(canvas, true);
 const createScene = function() {
-	let start = false;
 	const scene: Scene = new Scene(engine);
 	const lights: Lights = new Lights(scene);
 	const player: Player = new Player(scene, 'player');
 	const camera = new Camera(scene, canvas);
 	const road = new Road(scene);
 	const wall = new Wall(scene);
+	const ui = new Ui(scene, player);
 	const finishLine = new FinishLine(scene, player);
 	scene.clearColor = new Color4(255 / 255, 255 / 255, 248 / 255);
 	lights.create();
@@ -38,18 +44,10 @@ const createScene = function() {
 	road.create();
 	wall.create();
 	wall.setPlayer(player);
+	ui.create();
 	finishLine.create();
-	const gui = AdvancedDynamicTexture.CreateFullscreenUI('gui');
-	const button = Button.CreateSimpleButton('start', 'START');
-	button.width = 0.2;
-	button.height = '40px';
-	button.color = 'white';
-	button.background = 'green';
-	button.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-	button.onPointerUpObservable.add(function() {
-		player.setStarting();
-	});
-	gui.addControl(button);
+
+
 	scene.registerBeforeRender(() => {
 		player.update();
 		camera.update();
