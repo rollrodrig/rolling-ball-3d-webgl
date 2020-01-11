@@ -22,7 +22,7 @@ import Camera from './objects/Camera';
 import Lights from './objects/Lights';
 import Road from './objects/Road';
 import Wall from './objects/Wall';
-import Ui from './objects/Ui';
+import Ui from './ui/Ui';
 import { random } from './utils/random';
 import FinishLine from './objects/FinshLine';
 const canvas: any = document.getElementById('canvas');
@@ -46,7 +46,6 @@ const createScene = function() {
 	wall.setPlayer(player);
 	ui.create();
 	finishLine.create();
-
 
 	scene.registerBeforeRender(() => {
 		player.update();

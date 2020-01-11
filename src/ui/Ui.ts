@@ -6,26 +6,23 @@ import {
 	TextBlock,
 } from 'babylonjs-gui';
 import Player from '../characters/Player';
+import StartButton from './StartButton';
+import Score from './Score';
 class Ui {
 	scene: Scene;
 	entity: Mesh;
 	player: Player;
+	startButton: StartButton;
+	score: Score;
 	constructor(scene: Scene, player: Player) {
 		this.scene = scene;
 		this.player = player;
+		this.startButton = new StartButton(this.scene, this.player);
+		this.score = new Score(this.scene, this.player);
 	}
 	create() {
-		const gui = AdvancedDynamicTexture.CreateFullscreenUI('gui');
-		const button = Button.CreateSimpleButton('start', 'START');
-		button.width = 0.2;
-		button.height = '40px';
-		button.color = 'white';
-		button.background = 'green';
-		button.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
-		button.onPointerUpObservable.add(() => {
-			this.player.setStarting();
-		});
-		gui.addControl(button);
+		this.startButton.add();
+		this.score.add();
 	}
 }
 export default Ui;
