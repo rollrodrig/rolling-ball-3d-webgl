@@ -14,15 +14,22 @@ class Ui {
 	player: Player;
 	startButton: StartButton;
 	score: Score;
+	gui: AdvancedDynamicTexture;
 	constructor(scene: Scene, player: Player) {
 		this.scene = scene;
 		this.player = player;
-		this.startButton = new StartButton(this.scene, this.player);
-		this.score = new Score(this.scene, this.player);
+		this.gui = AdvancedDynamicTexture.CreateFullscreenUI('score');
+		this.startButton = new StartButton(this.scene, this.player, this.gui);
+		this.score = new Score(this.scene, this.player, this.gui);
 	}
 	create() {
-		this.startButton.add();
 		this.score.add();
+		this.startButton.add();
+	}
+	update() {
+		if (this.player.state === this.player.playerState.RUNNING) {
+			this.score.addScorePoints();
+		}
 	}
 }
 export default Ui;

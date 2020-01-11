@@ -50,6 +50,7 @@ const createScene = function() {
 	scene.registerBeforeRender(() => {
 		player.update();
 		camera.update();
+		ui.update();
 		if (player.isRunning()) {
 			wall.checkCollision();
 		}

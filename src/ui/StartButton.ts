@@ -10,14 +10,13 @@ class StartButton {
 	scene: Scene;
 	entity: Mesh;
 	player: Player;
-	constructor(scene: Scene, player: Player) {
+	gui: AdvancedDynamicTexture;
+	constructor(scene: Scene, player: Player, gui: AdvancedDynamicTexture) {
 		this.scene = scene;
 		this.player = player;
+		this.gui = gui;
 	}
 	add() {
-		const gui: AdvancedDynamicTexture = AdvancedDynamicTexture.CreateFullscreenUI(
-			'buttons'
-		);
 		const button = Button.CreateSimpleButton('start', 'START');
 		button.width = 0.2;
 		button.height = '40px';
@@ -27,7 +26,7 @@ class StartButton {
 		button.onPointerUpObservable.add(() => {
 			this.player.setStarting();
 		});
-		gui.addControl(button);
+		this.gui.addControl(button);
 	}
 }
 export default StartButton;
