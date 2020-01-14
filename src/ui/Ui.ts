@@ -23,8 +23,8 @@ class Ui {
 		this.score = new Score(this.scene, this.player, this.gui);
 	}
 	create() {
-		this.score.add();
 		this.startButton.add();
+		this.score.add();
 	}
 	update() {
 		if (this.player.state === this.player.playerState.RUNNING) {
